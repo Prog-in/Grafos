@@ -62,8 +62,8 @@ Undirected_Weighted_Graph::Undirected_Weighted_Graph(const std::string& arquivo)
         // populating caches
         _d[u]++;
         _d[v]++;
-        _neighbours[u].push_back(v);
-        _neighbours[v].push_back(u);
+        _neighbours[u].push_back(v+1);
+        _neighbours[v].push_back(u+1);
     }
 }
 
@@ -76,15 +76,15 @@ unsigned int Undirected_Weighted_Graph::qtdArestas() const {
 }
 
 unsigned int Undirected_Weighted_Graph::grau(const unsigned int v) const {
-    return _d[v];
+    return _d[v-1];
 }
 
-std::string Undirected_Weighted_Graph::rotulo(const unsigned int v) const {
-    return _m[v].first;
+std::string& Undirected_Weighted_Graph::rotulo(const unsigned int v) {
+    return _m[v-1].first;
 }
 
-std::vector<unsigned int> Undirected_Weighted_Graph::vizinhos(const unsigned int v) const {
-    return _neighbours[v];
+std::vector<unsigned int>& Undirected_Weighted_Graph::vizinhos(const unsigned int v) {
+    return _neighbours[v-1];
 }
 
 bool Undirected_Weighted_Graph::haAresta(const unsigned int u, const unsigned int v) const {
@@ -94,5 +94,5 @@ bool Undirected_Weighted_Graph::haAresta(const unsigned int u, const unsigned in
 float Undirected_Weighted_Graph::peso(const unsigned int u, const unsigned int v) const {
     const unsigned int max = u >= v ? u : v;
     const unsigned int min = u >= v ? v : u;
-    return _m.at(min).second[max];
+    return _m.at(min-1).second[max-1];
 }

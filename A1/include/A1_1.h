@@ -22,8 +22,8 @@ public:
     unsigned int qtdVertices() const;
     unsigned int qtdArestas() const;
     unsigned int grau(unsigned int v) const;
-    std::string rotulo(unsigned int v) const;
-    std::vector<unsigned int> vizinhos(unsigned int v) const;
+    std::string& rotulo(unsigned int v);
+    std::vector<unsigned int>& vizinhos(unsigned int v);
     bool haAresta(unsigned int u, unsigned int v) const;
     float peso(unsigned int u, unsigned int v) const;
 };

@@ -4,19 +4,19 @@
 
 #include "../include/A1_1.h"
 
-void bfs(const Undirected_Weighted_Graph& graph, const std::vector<unsigned int>& levelNodes, std::vector<bool> marked,
+void bfs(Undirected_Weighted_Graph& graph, const std::vector<unsigned int>& levelNodes, std::vector<bool> marked,
         const unsigned int level) {
     if (levelNodes.empty()) {
         return;
     }
     auto nextLevel = std::vector<unsigned int>();
     for (const unsigned int v : levelNodes) {
-        const std::vector<unsigned int> neighbours = graph.vizinhos(v);
+        std::vector<unsigned int>& neighbours = graph.vizinhos(v);
         // marking logic
         for (unsigned int neighbour : neighbours) {
-            if (!marked[neighbour]) {
+            if (!marked[neighbour-1]) {
                 nextLevel.push_back(neighbour);
-                marked[neighbour] = true;
+                marked[neighbour-1] = true;
             }
         }
     }
@@ -25,7 +25,7 @@ void bfs(const Undirected_Weighted_Graph& graph, const std::vector<unsigned int>
         std::cout << level << ": ";
         for (unsigned int i = 0; i < nextLevel.size(); i++) {
             const unsigned int neighbour = nextLevel[i];
-            std::cout << neighbour+1;
+            std::cout << neighbour;
             if (i < nextLevel.size() - 1) {
                 std::cout << ",";
             }
@@ -35,13 +35,12 @@ void bfs(const Undirected_Weighted_Graph& graph, const std::vector<unsigned int>
     bfs(graph, nextLevel, marked, level + 1);
 }
 
-void bfs(const Undirected_Weighted_Graph& graph, unsigned int vIndex) {
+void bfs(Undirected_Weighted_Graph& graph, const unsigned int vIndex) {
     std::cout << "0: " << vIndex << '\n';
-    vIndex--;
-    const auto q = std::vector(1, vIndex);
+    const auto initialLevel = std::vector(1, vIndex);
     auto marked = std::vector(graph.qtdVertices(), false);
-    marked[vIndex] = true;
-    bfs(graph, q, marked, 1);
+    marked[vIndex-1] = true;
+    bfs(graph, initialLevel, marked, 1);
 }
 
 int main(const int argc, char *argv[]) {
@@ -53,7 +52,7 @@ int main(const int argc, char *argv[]) {
     const std::string graph_file = argv[1];
     const unsigned int vIndex = atoi(argv[2]);
 
-    const auto graph = Undirected_Weighted_Graph(graph_file);
+    auto graph = Undirected_Weighted_Graph(graph_file);
     bfs(graph, vIndex);
 
     return 0;
