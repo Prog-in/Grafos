@@ -5,8 +5,8 @@
 #include <sstream>
 
 void Undirected_Weighted_Graph::store(const unsigned int u, const unsigned int v, const float weight) {
-    const unsigned int max = u >= v ? u : v;
-    const unsigned int min = u >= v ? v : u;
+    const unsigned int max = std::max(u, v);
+    const unsigned int min = std::min(u, v);
     // max - min: offset of the row "min" of the upper triangular matrix
      _m.at(min).second[max-min] = weight;
 }
@@ -25,7 +25,7 @@ Undirected_Weighted_Graph::Undirected_Weighted_Graph(const std::string& arquivo)
 
     _m = std::vector<std::pair<std::string, std::vector<float>>>(nVertices);
     for (unsigned int i = 0; i < nVertices; ++i) {
-        auto row = std::vector(nVertices-i, DEFAULT_EDGE_WEIGHT);
+        auto row = std::vector<float>(nVertices-i, DEFAULT_EDGE_WEIGHT);
         _m[i] = std::pair("", row);
     }
     _d = std::vector<unsigned int>(nVertices, 0);
@@ -92,7 +92,7 @@ bool Undirected_Weighted_Graph::haAresta(const unsigned int u, const unsigned in
 }
 
 float Undirected_Weighted_Graph::peso(const unsigned int u, const unsigned int v) const {
-    const unsigned int max = u >= v ? u : v;
-    const unsigned int min = u >= v ? v : u;
-    return _m.at(min-1).second[max-1];
+    const unsigned int max = std::max(u, v) - 1;
+    const unsigned int min = std::min(u, v) - 1;
+    return _m.at(min).second[max - min];
 }
