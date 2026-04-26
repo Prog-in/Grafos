@@ -34,7 +34,8 @@ void cicloEuleriano(Undirected_Weighted_Graph& graph)
             return;
         }
 
-        for (const auto &u : graph.vizinhos(v + 1)) {
+        for (unsigned int idx = 0; idx < graph.vizinhos(v+1).size(); idx++) {
+            unsigned int u = graph.vizinhos(v+1).at(idx);
             if (graph.haAresta(v + 1, u)
                   and not marked[v][u - 1]
                   and not found_edge) {

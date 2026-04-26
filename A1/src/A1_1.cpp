@@ -1,5 +1,6 @@
 #include "../include/A1_1.h"
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -64,6 +65,10 @@ Undirected_Weighted_Graph::Undirected_Weighted_Graph(const std::string& arquivo)
         _d[v]++;
         _neighbours[u].push_back(v+1);
         _neighbours[v].push_back(u+1);
+    }
+
+    for (unsigned int v = 1; v <= qtdVertices(); v++) {
+        std::sort(_neighbours[v-1].begin(), _neighbours[v-1].end());
     }
 }
 
