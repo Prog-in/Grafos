@@ -52,7 +52,7 @@ Undirected_Weighted_Graph::Undirected_Weighted_Graph(const std::string& arquivo)
     std::getline(fd, line);
 
     // (u+1) (v+1) weight
-    while (std::getline(fd, line)) {
+    while (std::getline(fd, line) and line.size() != 0) {
         ss.clear();
         ss.str(line);
         ss >> u >> v >> weight;
@@ -65,10 +65,6 @@ Undirected_Weighted_Graph::Undirected_Weighted_Graph(const std::string& arquivo)
         _d[v]++;
         _neighbours[u].push_back(v+1);
         _neighbours[v].push_back(u+1);
-    }
-
-    for (unsigned int v = 1; v <= qtdVertices(); v++) {
-        std::sort(_neighbours[v-1].begin(), _neighbours[v-1].end());
     }
 }
 
