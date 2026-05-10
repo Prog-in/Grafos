@@ -22,7 +22,7 @@ Directed_Weighted_Graph::Directed_Weighted_Graph(const std::string& arquivo) {
 
     _m = std::vector<std::pair<std::string, std::vector<float>>>(nVertices);
     for (unsigned int i = 0; i < nVertices; ++i) {
-        auto row = std::vector<float>(nVertices-i, DEFAULT_EDGE_WEIGHT);
+        auto row = std::vector<float>(nVertices, DEFAULT_EDGE_WEIGHT);
         _m[i] = std::pair("", row);
     }
     _dp = std::vector<unsigned int>(nVertices, 0);
