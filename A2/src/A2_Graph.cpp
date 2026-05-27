@@ -32,13 +32,25 @@ Directed_Weighted_Graph::Directed_Weighted_Graph(const std::string& arquivo) {
 
     // (i+1) (i+1)_label
     for (unsigned int i = 0; i < nVertices; ++i) {
+        w.clear();
         unsigned int vertex;
+        size_t wstart, wend;
+
         std::getline(fd, line);
         ss.clear();
         ss.str(line);
-        ss >> vertex >> w;
+        ss >> vertex;
+        w.resize(ss.str().size() ss.tellg());
+        ss.read(w.data(), w.size());
+        wstart = w.find('\"');
+        wend = w.rfind('\"');
+
         --vertex;
-        _m[vertex].first = w;
+        if (wstart == std::string::npos) {
+            _m[vertex].first = w;
+        } else {
+            _m[vertex].first = w.substr(wstart + 1, wend - 2);
+        }
         _inNeighbours[vertex] = std::vector<unsigned int>();
         _outNeighbours[vertex] = std::vector<unsigned int>();
     }
