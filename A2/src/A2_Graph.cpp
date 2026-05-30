@@ -40,7 +40,7 @@ Directed_Weighted_Graph::Directed_Weighted_Graph(const std::string& arquivo) {
         ss.clear();
         ss.str(line);
         ss >> vertex;
-        w.resize(ss.str().size() ss.tellg());
+        w.resize(ss.str().size(), ss.tellg());
         ss.read(w.data(), w.size());
         wstart = w.find('\"');
         wend = w.rfind('\"');
