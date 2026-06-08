@@ -9,7 +9,7 @@ APP_DIR := $(BUILD)/apps
 ACTIVITIES := $(wildcard A*)
 ALL_SOURCES := $(wildcard A*/src/*.cpp)
 
-LIB_SOURCES := A1/src/A1_1.cpp A2/src/A2_Graph.cpp A2/src/A1_1.cpp
+LIB_SOURCES := A1/src/A1_1.cpp A2/src/A2_Graph.cpp A2/src/A1_1.cpp A3/src/A2_Graph.cpp
 APP_SOURCES := $(filter-out $(LIB_SOURCES), $(ALL_SOURCES))
 
 ALL_OBJECTS := $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(ALL_SOURCES))
